@@ -1,21 +1,21 @@
-import numpy as np                                                                              # 01: core library used for all computations in the following
-from skimage.util.shape import view_as_windows as unroll                                        # 02: wrapper to numpy as_strided for rolling window view
+import numpy as np                                                                              # 01: core library
+from skimage.util.shape import view_as_windows as unroll                                        # 02: wrapper to numpy's as_strided method for rolling window view
 
-def pad(data, parameter):                                                                       # 03: PARAMETER as 8-element list for leading/trailing padding widths in all 4 dimensions of DATA
+def pad(data, parameter):                                                                       # 03: PARAMETER as 8-element list for leading/trailing zeros in all 4 dimensions of DATA
 
     if np.count_nonzero(parameter) == 0: return data                                            # 04: early stop if nothing to be padded
     else: return np.pad(data, zip(parameter[0::2],parameter[1::2]), 'constant')                 # 05: zero padding
 
 def forward(data, net):                                                                         # 06: DATA in format N*C*H*W (N*3*227*227 for REFNET input)
 
-    for l in xrange(len(net)):                                                                  # 07: NET (Python list of layers)
+    for l in xrange(len(net)):                                                                  # 07: NET (list of layers)
 
         if net[l]['type'] == 'conv':                                                            # 08: CONVOLUTION or INNER_PRODUCT
             data = pad(data, [0,0,0,0]+net[l]['pad'])                                           # 09: padding DATA in spatial dimensions (H and W) if needed
-            gnum = data.shape[1] / net[l]['filters'].shape[1]                                   # 10: number of FILTER groups G
-            gdat = gnum * [None]                                                                # 11: initializing empty list for caching results
+            gnum = data.shape[1] / net[l]['filters'].shape[1]                                   # 10: number of FILTER groups (G)
+            gdat = gnum * [None]                                                                # 11: empty list for result caching
             fdat = net[l]['filters'].reshape((gnum,-1)+net[l]['filters'].shape[1:])             # 12: reshaping FILTER (C'*C*h*w -> G*C'/G*C*h*w)
-            for g in xrange(gnum):                                                              # 13: loop for FILTER groups
+            for g in xrange(gnum):                                                              # 13: looping through FILTER groups
                 gdat[g] = data.reshape((data.shape[0],gnum,-1) + data.shape[2:])[:,g]           # 14: reshaping DATA (N*C*H*W -> N*G*C/G*H*W) into groups and taking the corresponding group
                 gdat[g] = unroll(gdat[g], (1,)+net[l]['filters'].shape[1:]).squeeze((1,4))      # 15: rolling window view of DATA (N*C*H*W -> N*(H-h+1)*(W-w+1)*C*h*w)
                 gdat[g] = gdat[g][:,::net[l]['stride'][0],::net[l]['stride'][1]]                # 16: striding (before computation)
@@ -34,7 +34,7 @@ def forward(data, net):                                                         
         elif net[l]['type'] == 'normalize':                                                     # 26: LRN
             ndat = pad(np.square(data), [0,0]+2*[(net[l]['param'][0]-1)/2]+[0,0,0,0])           # 27: padding squared DATA in spectral dimension (C) to simplify boundary conditions
             ndat = unroll(ndat, (1,net[l]['param'][0],1,1)).squeeze((4,6,7))                    # 28: rolling window view of DATA (N*(C+2c)*H*W -> N*C*H*W*(2c+1))
-            ndat = (net[l]['param'][1] + ndat.sum(-1)*net[l]['param'][2]) ** net[l]['param'][3] # 29: divisor
+            ndat = (net[l]['param'][1] + ndat.sum(-1)*net[l]['param'][2]) ** net[l]['param'][3] # 29: denominator
             data = data / ndat                                                                  # 30: element-wise normalization
 
         elif net[l]['type'] == 'softmax':                                                       # 31: SOFTMAX
