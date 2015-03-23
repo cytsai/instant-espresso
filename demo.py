@@ -7,7 +7,7 @@ import convnet
 
 # Specify Dataset
 
-dataset = '/home/kenyon/Research/Datasets/ILSVRC2012_img_val/*.JPEG'
+dataset = 'PATH_TO_DATASET/ILSVRC2012_img_val/*.JPEG'
 dataset = sorted(glob.glob(dataset))[0:500]
 
 # Load Network
