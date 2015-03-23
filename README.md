@@ -1,6 +1,6 @@
-# Instant Espresso: Caffe-Compatible Feature Extraction Engine in 35 Lines of Python
+# Instant Espresso:<br> Caffe-Compatible Feature Extraction Engine in 35 Lines of Python
 
-The powerful Berkeley Caffe framework has become the standard implementation of training and testing deep neural networks, but it can seem hard to install and use, especially to people from backgrounds other than computer science, even if they oftentimes only need classification results or feature vectors from the Caffe network on a handful of images, instead of training an entirely new network.
+The powerful Berkeley Caffe framework has become the standard implementation of training and testing deep neural networks, but it can seem hard to install and use, especially to people from backgrounds other than computer science, even if they oftentimes only need the classification results or feature vectors from the Caffe network on a handful of images, instead of training an entirely new network.
 
 Inspired by such needs, we implemented a Caffe-compatible feature extraction engine, i.e. feedforward pass of Caffe, in 35 lines of Python (more specifically NumPy and SciPy), which can in theory support most of the commonly used pre-trained networks (except GoogLeNet for now).
 
