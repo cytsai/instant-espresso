@@ -1,4 +1,4 @@
-# Instant Espresso<br><sub>Caffe-Compatible Feature Extraction Engine in 35 Lines of Python</sub>
+# Instant Espresso
 
 The powerful Berkeley Caffe framework has become the standard implementation of training and testing deep neural networks, but it can seem hard to install and use, especially to people from backgrounds other than computer science, even if they oftentimes only need the classification results or feature vectors from the Caffe network on a handful of images, instead of training an entirely new network.
 
