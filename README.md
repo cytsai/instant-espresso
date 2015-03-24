@@ -14,7 +14,7 @@ While converting a pre-trained Caffe network into our format can as well be done
 
 ## Usage
 
-Download this repository and the pre-converted Caffe reference network [<code>refnet.pkl.zip</code>](https://drive.google.com/open?id=0B8LpM_21I0tYLVBSN0NoU0w3b1U).
+Download this repository and the pre-converted Caffe reference network [<code>refnet.pkl.zip</code>](https://www.dropbox.com/s/ne4kzj0dzyzvvdz/refnet.pkl.zip).
 Worth to note, pickle files can be insecure especially when downloaded from unknown sources.
 Make sure you download it from the link specified above, and check if the md5sum of <code>refnet.pkl.zip</code> is <code>d19d1800a3f4560cb1546d91b253f7d3</code>.
 
