@@ -25,7 +25,7 @@ You should be able to find <code>results.html</code> after it finishes, which su
 
 Though not directly supported in <code>demo.py</code>, it shouldn't be hard at all to collect the feature vectors computed by a Caffe network.
 For example, by simply stripping the last layer of the Caffe reference network, one can observe the nice "semantic structures" in Caffe features, suggesting the network is doing things right.
-As reported by [Razavian et al.](http://arxiv.org/pdf/1403.6382.pdf), features directly derived from modern deep networks can serve as surprisingly good off-the-shelf representations for images to be classified in various recognition tasks, which also motivated the creation of this project.
+As reported by [Razavian et al.](http://arxiv.org/pdf/1403.6382.pdf), features directly derived from modern deep networks can often serve as surprisingly good off-the-shelf representations for images to be classified in various recognition tasks, which also motivated the creation of this project.
 
 ![SCREENSHOT2](screenshot2.jpg)
 
